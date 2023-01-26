@@ -9,7 +9,6 @@ import IconButton from '@mui/material/IconButton';
  
 function App() {
   const { onClose,cartOpen,setCartOpen } = useContext(MyContext);
-console.log('check')
   return (
     
         <div className="App">
