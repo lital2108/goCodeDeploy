@@ -80,7 +80,7 @@ const productSchema = new mongoose.Schema({
         console.log(e.message)
     }
   })
-
+ 
   // app.put("/api/products/updateAProduct", async (req,res) => {
   //   try{
   //       const productId = req.params
