@@ -12,6 +12,7 @@ const edit= ()=>{
 const Rows = (props) =>{
   const {title, price, category} = props;
   const [isEditing, setIsEditing] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [updatedTitle, setUpdatedTitle] = useState(props.title);
   const [updatedPrice, setUpdatedPrice] = useState(props.price);
   const [updatedCategory, setUpdatedCategory] = useState(props.category);
@@ -19,7 +20,27 @@ const Rows = (props) =>{
   const handleEdit = () => {
     setIsEditing(true);
   };
-
+  const handleDelete = () => {
+    setIsDeleting(true);
+    deleteProduct();
+  };
+  
+  const deleteProduct = async () => {
+    try {
+      const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/${props.id}`, {
+        method: "DELETE",
+      });
+  
+      if (!response.ok) {
+        throw new Error("Failed to delete product");
+      }
+  
+      setIsDeleting(false);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  
   const handleSave = async () => {
     try {
       const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/${props.id}`, {
@@ -39,7 +60,8 @@ const Rows = (props) =>{
       }
   
       setIsEditing(false);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error);
     }
   };
@@ -51,9 +73,9 @@ const Rows = (props) =>{
           <input
             value={updatedTitle}
             onChange={(e) => setUpdatedTitle(e.target.value)}
-          />
-        ) : (
-          title
+          />) : 
+          (
+            title
         )}
       </td>
       <td>
@@ -61,9 +83,9 @@ const Rows = (props) =>{
           <input
             value={updatedCategory}
             onChange={(e) => setUpdatedCategory(e.target.value)}
-          />
-        ) : (
-          category
+          />) : 
+          (
+            category
         )}
       </td>
       <td>
@@ -71,24 +93,21 @@ const Rows = (props) =>{
           <input
             value={updatedPrice}
             onChange={(e) => setUpdatedPrice(e.target.value)}
-          />
-        ) : (
-          price
+          />) : 
+          (
+             price
         )}
       </td>
       <td>
         {isEditing ? (
-          <button onClick={handleSave}>Save</button>
-        ) : (
-          <CiEdit cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={handleEdit} />
+          <button onClick={handleSave}>Save</button>) : 
+          (
+            <CiEdit cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={handleEdit} />
         )}
       </td>
       <td>
         <CiTrash
-          cursor="pointer"
-          style={{ height: "25px", width: "25px" }}
-          onClick={props.onDelete}
-        />
+          cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={handleDelete} />
       </td>
         {/* <td>{title}</td>
         <td>{category}</td>
