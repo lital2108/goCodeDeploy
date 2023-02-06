@@ -2,6 +2,8 @@ import React, {useEffect,useState} from 'react'
 import { BrowserRouter, Route,Routes } from 'react-router-dom';
 import About from './components/About';
 import Cart from './components/Cart';
+import Admin from './components/Admin';
+import Login from './components/Login';
 import ProductCard from './components/ProductCard';
 import App from './App';
 import MyContext from "./MyContext";
@@ -16,6 +18,9 @@ const [shoppingCart,setShoppingCart]=useState([])
 
   const fetchData = async () => {
     const response = await fetch('https://fakestoreapi.com/products');
+    //const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
+
+    ///api/products
     const data = await response.json();
     setProductsData(data);
     setAllProducts(data)
@@ -70,6 +75,8 @@ const [shoppingCart,setShoppingCart]=useState([])
                 <Route path='products/:productId' element = {<ProductCard />} />
                 <Route path='about' element = {<About />} />
                 <Route path='cart' element = {<Cart />} />
+                <Route path='admin' element ={<Admin />} />
+                <Route path='login' element ={<Login />} />
             </Routes>
         </MyContext.Provider>
     </BrowserRouter>
