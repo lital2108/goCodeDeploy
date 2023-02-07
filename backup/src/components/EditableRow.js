@@ -37,8 +37,8 @@ const EditableRow = (editFormData, handleEditFormChange) => {
           </input>
         </td>
         <td>
-        <button type='submit'>Save</button>
-        <button type='submit'>Cancle</button>
+        <button onClick={()=>{}}>Save</button>
+        <button onClick={()=>{}}>Cancle</button>
       </td>
     </tr>
   )

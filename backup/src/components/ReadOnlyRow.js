@@ -7,12 +7,11 @@ const ReadOnlyRow = ({product, handleEditClick}) => {
         <td>{product.title}</td>
         <td>{product.category}</td>
         <td>{product.price}</td>
-        <td>{ 
-            <CiEdit cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={(event)=>handleEditClick(event,product)} />} 
+        <td> 
+            <CiEdit cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={(event)=>handleEditClick(event,product)} />
+            <CiTrash cursor="pointer" style={{ height: "25px", width: "25px" }}  />
         </td>
-        <td>{
-            <CiTrash cursor="pointer" style={{ height: "25px", width: "25px" }}  />} 
-        </td>
+
     </tr>
   )
 }

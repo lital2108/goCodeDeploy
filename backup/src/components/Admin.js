@@ -78,7 +78,7 @@ const Admin = () => {
     const handleEditFormSubmit = async (event) => {
         try {
             event.preventDefault();
-            const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${product.id}`, {
+            const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${editProductId}`, {
             method: "Put",
             headers: {
               "Content-Type": "application/json",
@@ -118,9 +118,10 @@ const Admin = () => {
     useEffect(() => {
     fetchData();
     },[])
+    
   return (
     <div>
-        <form>
+        <div onClick={handleEditFormSubmit}>
         <table>
             <thead>
                 <tr className='header'>
@@ -142,9 +143,9 @@ const Admin = () => {
                 )}
             </tbody>
         </table>
-        </form>
+        </div>
         <h2>add a product</h2>
-        <form onSubmit={handleAddFormSubmit}>
+        <div onClick={handleAddFormSubmit}>
             <input
                     type="text"
                     name="title"
@@ -167,7 +168,7 @@ const Admin = () => {
                     onChange={handleAddFormChange}
             />
             <button type="submit">Add</button>
-        </form>
+        </div>
         </div>
     )
 }
