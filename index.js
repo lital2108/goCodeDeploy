@@ -119,21 +119,21 @@ app.delete("/api/products/deleteAProduct/:id", async (req, res) => {
   app.get("*",(req,res)=>{
     res.sendFile(__dirname + "/backup/build/index.html")
   })
-  mongoose.connect(
-    `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,
-    { useNewUrlParser: true, useUnifiedTopology: true },
-    (err) => {
-      app.listen(PORT || 8000, () => {
-        console.log("err", err);
-        console.log("Ani maazin!");
-      });
-    }
-  );
-// mongoose.connect("mongodb://127.0.0.1:27017/products", {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-//   });
+  // mongoose.connect(
+  //   `mongodb+srv://${DB_USER}:${DB_PASS}@${DB_HOST}/${DB_NAME}?retryWrites=true&w=majority`,
+  //   { useNewUrlParser: true, useUnifiedTopology: true },
+  //   (err) => {
+  //     app.listen(PORT || 8000, () => {
+  //       console.log("err", err);
+  //       console.log("Ani maazin!");
+  //     });
+  //   }
+  // );
+mongoose.connect("mongodb://127.0.0.1:27017/products", {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
 
-// app.listen(PORT, () => {
-//     console.log(`Example app listening on port ${PORT}!`);
-//   });
+app.listen(PORT, () => {
+    console.log(`Example app listening on port ${PORT}!`);
+  });

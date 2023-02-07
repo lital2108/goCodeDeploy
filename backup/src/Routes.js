@@ -17,8 +17,8 @@ const [cartOpen,setCartOpen] = useState(false);
 const [shoppingCart,setShoppingCart]=useState([])
 
   const fetchData = async () => {
-    // const response = await fetch('https://fakestoreapi.com/products');
-    const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
+    const response = await fetch('https://fakestoreapi.com/products');
+    // const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
 
     ///api/products
     const data = await response.json();

@@ -1,161 +1,175 @@
-import React from 'react'
-import { useContext,useState, useEffect } from "react";
-import MyContext from "../MyContext";
-import { CiEdit, CiTrash } from "react-icons/ci";
+import React, { useState, useEffect, Fragment } from 'react'
 import './Admin.css'
+import ReadOnlyRow from './ReadOnlyRow' 
+import EditableRow from './EditableRow' 
 
-
-
-const edit= ()=>{
-
-}
-const Rows = (props) =>{
-  const {title, price, category} = props;
-  const [isEditing, setIsEditing] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [updatedTitle, setUpdatedTitle] = useState(props.title);
-  const [updatedPrice, setUpdatedPrice] = useState(props.price);
-  const [updatedCategory, setUpdatedCategory] = useState(props.category);
-
-  const handleEdit = () => {
-    setIsEditing(true);
-  };
-  const handleDelete = () => {
-    setIsDeleting(true);
-    deleteProduct();
-  };
-  
-  const deleteProduct = async () => {
-    try {
-      const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/${props.id}`, {
-        method: "DELETE",
-      });
-  
-      if (!response.ok) {
-        throw new Error("Failed to delete product");
-      }
-  
-      setIsDeleting(false);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  
-  const handleSave = async () => {
-    try {
-      const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/${props.id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: updatedTitle,
-          price: updatedPrice,
-          category: updatedCategory,
-        }),
-      });
-  
-      if (!response.ok) {
-        throw new Error("Failed to update product");
-      }
-  
-      setIsEditing(false);
-    } 
-    catch (error) {
-      console.error(error);
-    }
-  };
-  
-    return(
-    <tr>
-         <td>
-        {isEditing ? (
-          <input
-            value={updatedTitle}
-            onChange={(e) => setUpdatedTitle(e.target.value)}
-          />) : 
-          (
-            title
-        )}
-      </td>
-      <td>
-        {isEditing ? (
-          <input
-            value={updatedCategory}
-            onChange={(e) => setUpdatedCategory(e.target.value)}
-          />) : 
-          (
-            category
-        )}
-      </td>
-      <td>
-        {isEditing ? (
-          <input
-            value={updatedPrice}
-            onChange={(e) => setUpdatedPrice(e.target.value)}
-          />) : 
-          (
-             price
-        )}
-      </td>
-      <td>
-        {isEditing ? (
-          <button onClick={handleSave}>Save</button>) : 
-          (
-            <CiEdit cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={handleEdit} />
-        )}
-      </td>
-      <td>
-        <CiTrash
-          cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={handleDelete} />
-      </td>
-        {/* <td>{title}</td>
-        <td>{category}</td>
-        <td>{price}</td>
-        <td><CiEdit cursor='pointer' style={{height:'25px', width:'25px'}}/></td>
-        <td><CiTrash onClick={()=>edit() }cursor='pointer' style={{height:'25px', width:'25px'}}/></td> */}
-    </tr>)
-}
-const Table = (props) => {
-    const {data} = props
-    return (
-    <table>
-        {data.map(row => 
-            <Rows title = {row.title}
-                price = {row.price}
-                category = {row.category}
-            />
-        )}
-    </table>)
-}
 const Admin = () => {
-    const [rows, setRows] = useState([]);
+    const[products,setProducts]=useState([])
+
+    const [addFormData,setAddFormData]=useState({
+        title:'',
+        category:'',
+        price:''
+    })
+
+    const [editFormData,setEditFormData]=useState({
+        title:'',
+        category:'',
+        price:''
+    })
+
+    const [editProductId,setEditProductId]=useState(null);
+
+    const handleAddFormChange=(event)=>{
+        event.preventDefault();
+
+        const fieldName=event.target.getAttribute("name");
+        const fieldValue=event.target.value;
+
+        const newFormData={...addFormData};
+        newFormData[fieldName]=fieldValue;
+
+        setAddFormData(newFormData);
+    }
+    const handleEditFormChange =(event)=>
+    {
+        event.preventDefault();
+
+        const fieldName=event.target.getAttribute("name");
+        const fieldValue=event.target.value;
+
+        const newFormData={...addFormData};
+        newFormData[fieldName]=fieldValue;
+
+        setAddFormData(newFormData);
+    }
+
+    const handleAddFormSubmit=async (event) => {
+                try {
+                    event.preventDefault();
+                    const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/addProduct`, {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                      title: addFormData.title,
+                      category: addFormData.category,
+                      price: addFormData.price,
+                    }),
+                  });
+              
+                  if (!response.ok) {
+                    throw new Error("Failed to update product");
+                  }}
+                  catch (error) {
+                    console.error(error);
+                }
+        // const newProduct= {
+        //     id: nanoid(),
+        //     title: addFormData.title,
+        //     category: addFormData.category,
+        //     price: addFormData.price
+        // }
+        // const newProducts=[...products,newProduct];
+        // setProducts(newProducts);
+    }
+
+    const handleEditFormSubmit = async (event) => {
+        try {
+            event.preventDefault();
+            const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${product.id}`, {
+            method: "Put",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              title: editFormData.title,
+              category: editFormData.category,
+              price: editFormData.price,
+            }),
+          });
+      
+          if (!response.ok) {
+            throw new Error("Failed to update product");
+          }}
+          catch (error) {
+            console.error(error);
+        }
+    }
+    const handleEditClick = (event, product)=>{
+        event.preventDefault();
+        setEditProductId(product.id)
+        const formValues={
+            title:product.title,
+            category:product.category,
+            price:product.price
+        }
+        setEditFormData(formValues);
+    }
 
     const fetchData = async () => {
-        const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
-        ///api/products
-        const products = await response.json();
-        setRows(products)
-      }
-    
-      useEffect(() => {
-        fetchData();
-        },[])
+    // const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
+    const response = await fetch('https://fakestoreapi.com/products');
+    const data = await response.json();
+    setProducts(data)
+    }
 
-    // const { productsData } = useContext(MyContext);
-
+    useEffect(() => {
+    fetchData();
+    },[])
   return (
-    <div className='Admin'>
-    <thead>
-        <td>Title</td>
-        <td>Category</td>
-        <td>Price</td>
-        <td>Edit</td>
-        <td>Erase</td>
-    </thead>
-        <Table data = {rows} />
-    </div>
-  )
+    <div>
+        <form>
+        <table>
+            <thead>
+                <tr className='header'>
+                    <td>Title</td>
+                    <td>Category</td>
+                    <td>Price</td>
+                    <td>Actions</td>    
+                </tr>
+            </thead>
+            <tbody>
+                {products.map((product)=>
+                <Fragment>
+                    { editProductId === product.id ? (
+                        <EditableRow editProductId={editProductId} handleEditFormChange={handleEditFormChange} />
+                    ) : ( 
+                        <ReadOnlyRow product={product} handleEditClick={handleEditClick} /> 
+                    )}
+                </Fragment>
+                )}
+            </tbody>
+        </table>
+        </form>
+        <h2>add a product</h2>
+        <form onSubmit={handleAddFormSubmit}>
+            <input
+                    type="text"
+                    name="title"
+                    required="required"
+                    placeholder="Enter product title"
+                    onChange={handleAddFormChange}
+            />
+            <input
+                    type="text"
+                    name="category"
+                    required="required"
+                    placeholder="Enter product category"
+                    onChange={handleAddFormChange}
+            />
+            <input
+                    type="text"
+                    name="price"
+                    required="required"
+                    placeholder="Enter product price"
+                    onChange={handleAddFormChange}
+            />
+            <button type="submit">Add</button>
+        </form>
+        </div>
+    )
 }
 
 export default Admin
