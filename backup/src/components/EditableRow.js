@@ -1,6 +1,6 @@
 import React from 'react'
 
-const EditableRow = (editFormData, handleEditFormChange) => {
+const EditableRow = (editFormData, handleEditFormChange,handleCancleClick) => {
   return (
     <tr>
          <td>
@@ -38,7 +38,7 @@ const EditableRow = (editFormData, handleEditFormChange) => {
         </td>
         <td>
         <button onClick={()=>{}}>Save</button>
-        <button onClick={()=>{}}>Cancle</button>
+        <button onClick={{handleCancleClick}}>Cancle</button>
       </td>
     </tr>
   )

@@ -108,6 +108,9 @@ const Admin = () => {
         setEditFormData(formValues);
     }
 
+    const handleCancleClick =()=>{
+        setEditProductId(null);
+    }
     const fetchData = async () => {
     // const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
     const response = await fetch('https://fakestoreapi.com/products');
@@ -118,7 +121,7 @@ const Admin = () => {
     useEffect(() => {
     fetchData();
     },[])
-    
+
   return (
     <div>
         <div onClick={handleEditFormSubmit}>
@@ -135,7 +138,10 @@ const Admin = () => {
                 {products.map((product)=>
                 <Fragment>
                     { editProductId === product.id ? (
-                        <EditableRow editProductId={editProductId} handleEditFormChange={handleEditFormChange} />
+                        <EditableRow 
+                        editProductId={editProductId} 
+                        handleEditFormChange={handleEditFormChange}
+                        handleCancleClick={handleCancleClick} />
                     ) : ( 
                         <ReadOnlyRow product={product} handleEditClick={handleEditClick} /> 
                     )}
