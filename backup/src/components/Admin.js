@@ -358,7 +358,7 @@ const Admin = () => {
         const { name, value } = e.target
         console.log(_id);
     
-        const product = productsData.find((item) => item.id === _id)
+        const product = productsData.find((item) => item._id === _id)
         product[name] = value
     
         try {
@@ -374,7 +374,7 @@ const Admin = () => {
           console.log(updatedProduct)
       
           const editData = productsData.map((item) =>
-            item.id === _id ? updatedProduct : item
+            item._id === _id ? updatedProduct : item
           )
       
           setProductsData(editData)
@@ -385,6 +385,7 @@ const Admin = () => {
   
     return (
       <div className="container">
+        <h1>Hello Admin</h1>
         <table>
           <thead>
             <tr>
@@ -394,7 +395,7 @@ const Admin = () => {
             </tr>
           </thead>
           <tbody>
-            {productsData.map(({ id: _id, title, category, price }) => (
+            {productsData.map(({ _id: _id, title, category, price }) => (
               <tr key={_id}>
                 <td>
                   <input
