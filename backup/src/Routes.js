@@ -24,6 +24,7 @@ const [shoppingCart,setShoppingCart]=useState([])
     const data = await response.json();
     setProductsData(data);
     setAllProducts(data)
+    console.log(data);
     setCategories(data.map(p => p.category).filter((value, index, array) => array.indexOf(value)===index));
   }
 

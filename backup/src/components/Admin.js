@@ -173,7 +173,7 @@
 //                     placeholder="Enter product price"
 //                     onChange={handleAddFormChange}
 //             />
-//             <button type="submit">Add</button>
+//             <button >Add</button>
 //         </div>
 //         </div>
 //     )
@@ -184,154 +184,254 @@
 
 
 
-import React, { useState, useEffect } from 'react';
+// import React, { useState, useEffect } from 'react';
 
-const ReadOnlyRow = ({ rowData }) => (
-  <tr>
-    <td>{rowData.title}</td>
-    <td>{rowData.category}</td>
-    <td>{rowData.price}</td>
-    <td>
-      <button>Edit</button>
-      <button>Delete</button>
-    </td>
-  </tr>
-);
+// const ReadOnlyRow = ({ rowData }) => (
+//   <tr>
+//     <td>{rowData.title}</td>
+//     <td>{rowData.category}</td>
+//     <td>{rowData.price}</td>
+//     <td>
+//       <button>Edit</button>
+//       <button>Delete</button>
+//     </td>
+//   </tr>
+// );
 
-const EditableRow = ({ rowData, index, onInputChange, onSave, onCancel }) => (
-  <tr>
-    <td>
-      <input
-        type="text"
-        name="title"
-        value={rowData.title}
-        onChange={onInputChange}
-      />
-    </td>
-    <td>
-      <input
-        type="text"
-        name="category"
-        value={rowData.category}
-        onChange={onInputChange}
-      />
-    </td>
-    <td>
-      <input
-        type="text"
-        name="price"
-        value={rowData.price}
-        onChange={onInputChange}
-      />
-    </td>
-    <td>
-      <button onClick={() => onSave(index)}>Save</button>
-      <button onClick={onCancel}>Cancel</button>
-    </td>
-  </tr>
-);
+// const EditableRow = ({ rowData, index, onInputChange, onSave, onCancel }) => (
+//   <tr>
+//     <td>
+//       <input
+//         type="text"
+//         name="title"
+//         value={rowData.title}
+//         onChange={onInputChange}
+//       />
+//     </td>
+//     <td>
+//       <input
+//         type="text"
+//         name="category"
+//         value={rowData.category}
+//         onChange={onInputChange}
+//       />
+//     </td>
+//     <td>
+//       <input
+//         type="text"
+//         name="price"
+//         value={rowData.price}
+//         onChange={onInputChange}
+//       />
+//     </td>
+//     <td>
+//       <button onClick={() => onSave(index)}>Save</button>
+//       <button onClick={onCancel}>Cancel</button>
+//     </td>
+//   </tr>
+// );
+
+// const Admin = () => {
+//   const [tableData, setTableData] = useState([]);
+//   const [editingIndex, setEditingIndex] = useState(null);
+//   const [updatedValue, setUpdatedValue] = useState({ title: '', category: '', price: '' });
+
+//   useEffect(() => {
+//     const fetchData = async () => {
+//     //   const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
+//     const response = await fetch('https://fakestoreapi.com/products');
+
+//     const data = await response.json();
+//       setTableData(data);
+//     };
+//     fetchData();
+//   }, []);
+
+//   const handleUpdate = async index => {
+//     const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${index}`, {
+//       method: 'PUT',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(updatedValue)
+//     });
+//     const updatedData = await response.json();
+//     setTableData(updatedData);
+//     setEditingIndex(null);
+//   };
+
+//   const handleAdd = async newValue => {
+//     const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/addProduct`, {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json'
+//       },
+//       body: JSON.stringify(newValue)
+//     });
+//     const updatedData = await response.json();
+//     setTableData([...tableData, updatedData]);
+//   };
+
+//   const handleDelete = async index => {
+//     const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/deleteAProduct/${index}`, {
+//       method: 'DELETE'
+//     });
+//     const updatedData = await response.json();
+//     setTableData(updatedData);
+//   };
+
+//   const handleEdit = index => {
+//     setEditingIndex(index);
+//     setUpdatedValue(tableData[index]);
+//   };
+
+//   const handleCancel = () => {
+//     setEditingIndex(null);
+//   };
+
+//   const handleInputChange = event => {
+//     setUpdatedValue({ ...updatedValue, [event.target.name]: event.target.value });
+// };
+
+//         return (
+//         <div>
+//         <table>
+//         <thead>
+//         <tr>
+//         <th>Title</th>
+//         <th>Category</th>
+//         <th>Price</th>
+//         <th>Actions</th>
+//         </tr>
+//         </thead>
+//         <tbody>
+//         {tableData.map((rowData, index) => {
+//         if (index === editingIndex) {
+//         return (
+//         <EditableRow
+//         key={index}
+//         rowData={updatedValue}
+//         index={index}
+//         onInputChange={handleInputChange}
+//         onSave={() => handleUpdate(index)}
+//         onCancel={handleCancel}
+//         />
+//         );
+//         }
+//         return (
+//         <ReadOnlyRow
+//         key={index}
+//         rowData={rowData}
+//         onEdit={() => handleEdit(index)}
+//         onDelete={() => handleDelete(index)}
+//         />
+//         );
+//         })}
+//         </tbody>
+//         </table>
+//         <button onClick={() => handleAdd(updatedValue)}>Add</button>
+//         </div>
+//         );
+//         };
+
+// export default Admin;
+import React, { useState, useEffect } from 'react'
+import { CiTrash } from "react-icons/ci";
 
 const Admin = () => {
-  const [tableData, setTableData] = useState([]);
-  const [editingIndex, setEditingIndex] = useState(null);
-  const [updatedValue, setUpdatedValue] = useState({ title: '', category: '', price: '' });
+    const [productsData, setProductsData] = useState([])
 
-  useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
-    // const response = await fetch('https://fakestoreapi.com/products');
-
-    const data = await response.json();
-      setTableData(data);
-    };
-    fetchData();
-  }, []);
-
-  const handleUpdate = async index => {
-    const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${index}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(updatedValue)
-    });
-    const updatedData = await response.json();
-    setTableData(updatedData);
-    setEditingIndex(null);
-  };
-
-  const handleAdd = async newValue => {
-    const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/addProduct`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(newValue)
-    });
-    const updatedData = await response.json();
-    setTableData([...tableData, updatedData]);
-  };
-
-  const handleDelete = async index => {
-    const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/deleteAProduct/${index}`, {
-      method: 'DELETE'
-    });
-    const updatedData = await response.json();
-    setTableData(updatedData);
-  };
-
-  const handleEdit = index => {
-    setEditingIndex(index);
-    setUpdatedValue(tableData[index]);
-  };
-
-  const handleCancel = () => {
-    setEditingIndex(null);
-  };
-
-  const handleInputChange = event => {
-    setUpdatedValue({ ...updatedValue, [event.target.name]: event.target.value });
-};
-
-        return (
-        <div>
-        <table>
-        <thead>
-        <tr>
-        <th>Title</th>
-        <th>Category</th>
-        <th>Price</th>
-        <th>Actions</th>
-        </tr>
-        </thead>
-        <tbody>
-        {tableData.map((rowData, index) => {
-        if (index === editingIndex) {
-        return (
-        <EditableRow
-        key={index}
-        rowData={updatedValue}
-        index={index}
-        onInputChange={handleInputChange}
-        onSave={() => handleUpdate(index)}
-        onCancel={handleCancel}
-        />
-        );
+            const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
+            // const response = await fetch('https://fakestoreapi.com/products');
+            const data = await response.json();
+            setProductsData(data);
         }
-        return (
-        <ReadOnlyRow
-        key={index}
-        rowData={rowData}
-        onEdit={() => handleEdit(index)}
-        onDelete={() => handleDelete(index)}
-        />
-        );
-        })}
-        </tbody>
-        </table>
-        <button onClick={() => handleAdd(updatedValue)}>Add</button>
-        </div>
-        );
-        };
+        
+    useEffect(() => {
+    fetchData();
+    },[])
 
-export default Admin;
+
+  
+    const onChangeInput = async (e, _id) => {
+        const { name, value } = e.target
+        console.log(_id);
+    
+        const product = productsData.find((item) => item.id === _id)
+        product[name] = value
+    
+        try {
+          const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${_id}`, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(product)
+          })
+      
+          const updatedProduct = await response.json()
+          console.log(updatedProduct)
+      
+          const editData = productsData.map((item) =>
+            item.id === _id ? updatedProduct : item
+          )
+      
+          setProductsData(editData)
+        } catch (error) {
+          console.error(error)
+        }
+      }
+  
+    return (
+      <div className="container">
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            {productsData.map(({ id: _id, title, category, price }) => (
+              <tr key={_id}>
+                <td>
+                  <input
+                    name="title"
+                    value={title}
+                    type="text"
+                    onChange={(e) => onChangeInput(e, _id)}
+                    placeholder="Type Title"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="category"
+                    value={category}
+                    type="text"
+                    onChange={(e) => onChangeInput(e, _id)}
+                    placeholder="Type Category"
+                  />
+                </td>
+                <td>
+                  <input
+                    name="price"
+                    type="text"
+                    value={price}
+                    onChange={(e) => onChangeInput(e, _id)}
+                    placeholder="Type Price"
+                  />
+                </td>
+                <td> 
+                    <CiTrash cursor="pointer" style={{ height: "25px", width: "25px" }}  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+  
+  export default Admin
