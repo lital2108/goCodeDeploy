@@ -386,7 +386,7 @@ const Admin = (props) => {
   
     return (
       <div className="container">
-        <h1>Hello {props.userName}</h1>
+        <h1>Hello, {props.userName}</h1>
         <table>
           <thead>
             <tr>
