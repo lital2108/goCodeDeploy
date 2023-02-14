@@ -11,6 +11,7 @@ function Login() {
   // React States
   const [errorMessages, setErrorMessages] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [userName, setUserName] = useState("");
 
   // User Login info
   const database = [
@@ -45,6 +46,7 @@ function Login() {
         setErrorMessages({ name: "pass", message: errors.pass });
       } else {
         setIsSubmitted(true);
+        setUserName(uname.value);
       }
     } else {
       // Username not found
@@ -83,7 +85,7 @@ function Login() {
     <div className="login">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? navigate('../admin') : renderForm}
+        {isSubmitted ? <Admin userName={userName}/> : renderForm}
       </div>
     </div>
   );

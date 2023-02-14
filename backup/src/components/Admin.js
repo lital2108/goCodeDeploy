@@ -335,10 +335,11 @@
 //         };
 
 // export default Admin;
+
 import React, { useState, useEffect } from 'react'
 import { CiTrash } from "react-icons/ci";
 
-const Admin = () => {
+const Admin = (props) => {
     const [productsData, setProductsData] = useState([])
 
     const fetchData = async () => {
@@ -385,7 +386,7 @@ const Admin = () => {
   
     return (
       <div className="container">
-        <h1>Hello Admin</h1>
+        <h1>Hello {props.userName}</h1>
         <table>
           <thead>
             <tr>
@@ -425,7 +426,7 @@ const Admin = () => {
                   />
                 </td>
                 <td> 
-                    <CiTrash cursor="pointer" style={{ height: "25px", width: "25px" }}  />
+                    <CiTrash className='icon' cursor="pointer" style={{ height: "25px", width: "25px" }}  />
                 </td>
               </tr>
             ))}

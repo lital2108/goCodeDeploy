@@ -79,3 +79,7 @@ input:focus {
   outline: 1px solid #ccc;
   border: 1px solid #ccc;
 }
+
+.icon{
+  padding-top: 1em;
+}
