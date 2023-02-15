@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-import ReactDOM from "react-dom";
 import { useNavigate } from "react-router-dom";
 
 import "./Login.css";
@@ -16,7 +15,7 @@ function Login() {
   // User Login info
   const database = [
     {
-      username: "user1",
+      username: "Lital",
       password: "pass1"
     },
     {
@@ -47,6 +46,8 @@ function Login() {
       } else {
         setIsSubmitted(true);
         setUserName(uname.value);
+        console.log(uname.value);
+        console.log(userName);
       }
     } else {
       // Username not found
@@ -85,7 +86,7 @@ function Login() {
     <div className="login">
       <div className="login-form">
         <div className="title">Sign In</div>
-        {isSubmitted ? <Admin userName={userName}/> : renderForm}
+        {isSubmitted ? navigate(`/admin/${userName}`): renderForm}
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ const [cartOpen,setCartOpen] = useState(false);
 const [shoppingCart,setShoppingCart]=useState([])
 
   const fetchData = async () => {
-    const response = await fetch('https://fakestoreapi.com/products');
+    const response = await fetch('http://localhost:8000/api/products');
     // const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
 
     ///api/products
@@ -76,7 +76,7 @@ const [shoppingCart,setShoppingCart]=useState([])
                 <Route path='products/:productId' element = {<ProductCard />} />
                 <Route path='about' element = {<About />} />
                 <Route path='cart' element = {<Cart />} />
-                <Route path='admin' element ={<Admin />} />
+                <Route path='admin/:userName' element ={<Admin />} />
                 <Route path='login' element ={<Login />} />
             </Routes>
         </MyContext.Provider>

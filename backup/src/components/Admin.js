@@ -336,15 +336,21 @@
 
 // export default Admin;
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, Fragment } from 'react'
 import { CiTrash } from "react-icons/ci";
+import { useParams } from 'react-router-dom';
 
-const Admin = (props) => {
+const Admin = () => {
     const [productsData, setProductsData] = useState([])
-
+    const { userName } = useParams();
+    const [newTitle,setNewTitle]=useState('')
+    const [newCategory,setNewCategory]=useState('')
+    const [newPrice,setNewPrice]=useState('')
     const fetchData = async () => {
-            const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
+            // const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
             // const response = await fetch('https://fakestoreapi.com/products');
+            const response = await fetch('http://localhost:8000/api/products');
+
             const data = await response.json();
             setProductsData(data);
         }
@@ -355,16 +361,17 @@ const Admin = (props) => {
 
 
   
-    const onChangeInput = async (e, _id) => {
+    const onChangeInput = async (e, id) => {
         const { name, value } = e.target
-        console.log(_id);
-    
-        const product = productsData.find((item) => item._id === _id)
+        const product = productsData.find((item) => item._id === id)
         product[name] = value
+        console.log(name,value,product);
     
         try {
-          const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${_id}`, {
-            method: 'PUT',
+          // const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${id}`, {
+            const response = await fetch(`http://localhost:8000/api/products/updateAProduct/${id}`, {
+  
+          method: 'PUT',
             headers: {
               'Content-Type': 'application/json'
             },
@@ -375,7 +382,7 @@ const Admin = (props) => {
           console.log(updatedProduct)
       
           const editData = productsData.map((item) =>
-            item._id === _id ? updatedProduct : item
+            item.id === id ? updatedProduct : item
           )
       
           setProductsData(editData)
@@ -383,10 +390,46 @@ const Admin = (props) => {
           console.error(error)
         }
       }
-  
+      
+      const handleDeleteItem = async (id) => {
+        try{
+          // const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/deleteAProduct/${id}`, {
+            const response = await fetch(`http://localhost:8000/api/products/deleteAProduct/${id}`, {
+          method:'DELETE'
+        })
+        const deletedProduct = await response.json()
+        setProductsData(productsData.filter(p => p._id !== deletedProduct._id))
+      }
+
+      catch(e){
+        console.log(e)
+      }
+      } 
+
+      const handleAddItem = async () => {
+        try {
+          const response = await fetch('http://localhost:8000/api/products/addProduct', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              title: newTitle,
+              category: newCategory,
+              price: newPrice
+            })
+          })
+          const addedProduct = await response.json()
+          setProductsData([...productsData, addedProduct])
+        } catch (error) {
+          console.error(error)
+        }
+      }
+      
     return (
       <div className="container">
-        <h1>Hello, {props.userName}</h1>
+        <h1>Hello {userName}</h1>
+        <tr><td colSpan="2">&nbsp;</td></tr>
         <table>
           <thead>
             <tr>
@@ -396,23 +439,25 @@ const Admin = (props) => {
             </tr>
           </thead>
           <tbody>
-            {productsData.map(({ _id: _id, title, category, price }) => (
-              <tr key={_id}>
+            {productsData.map(({ _id, title, category, price }) => (
+             <Fragment>
+             
+             <tr key={_id}>
                 <td>
                   <input
                     name="title"
-                    value={title}
+                    defaultValue={title}
                     type="text"
-                    onChange={(e) => onChangeInput(e, _id)}
+                    onBlur={(e) => onChangeInput(e, _id)}
                     placeholder="Type Title"
                   />
                 </td>
                 <td>
                   <input
                     name="category"
-                    value={category}
+                    defaultValue={category}
                     type="text"
-                    onChange={(e) => onChangeInput(e, _id)}
+                    onBlur={(e) => onChangeInput(e, _id)}
                     placeholder="Type Category"
                   />
                 </td>
@@ -420,18 +465,58 @@ const Admin = (props) => {
                   <input
                     name="price"
                     type="text"
-                    value={price}
-                    onChange={(e) => onChangeInput(e, _id)}
+                    defaultValue={price}
+                    onBlur={(e) => onChangeInput(e, _id)}
                     placeholder="Type Price"
                   />
                 </td>
                 <td> 
-                    <CiTrash className='icon' cursor="pointer" style={{ height: "25px", width: "25px" }}  />
+                    <CiTrash className='icon' cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={() => handleDeleteItem(_id)}  />
                 </td>
               </tr>
+              </Fragment>
             ))}
           </tbody>
         </table>
+        <tr><td colSpan="2">&nbsp;</td></tr>
+
+        <h1>Add an item</h1>
+        
+        <div>
+          <tr>
+            <td>
+            <input
+                    type="text"
+                    name="title"
+                    required="required"
+                    placeholder="Enter product title"
+                    defaultValue={newTitle}
+                    onBlur={(e) => setNewTitle(e.target.value)}            />
+            </td>
+            <td>
+            <input
+                    type="text"
+                    name="category"
+                    required="required"
+                    placeholder="Enter product category"
+                    defaultValue={newCategory}
+                    onBlur={(e) => setNewCategory(e.target.value)}
+            />
+            </td>
+            <td>
+            <input
+                    type="text"
+                    name="price"
+                    required="required"
+                    placeholder="Enter product price"
+                    defaultValue={newPrice}
+                    onBlur={(e) => setNewPrice(e.target.value)}
+
+            />
+            </td>
+            <button onClick={handleAddItem}> Add </button>
+          </tr>
+        </div>
       </div>
     )
   }

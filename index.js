@@ -1,13 +1,14 @@
 import express, { query } from "express";
 import mongoose from 'mongoose'
 import  dotenv from 'dotenv'
+import cors from 'cors'
 dotenv.config()
 const {PORT,DB_USER,DB_PASS,DB_HOST,DB_NAME}=process.env
 
 const app = express();
 app.use(express.json());
 app.use(express.static("backup/build"))
-
+app.use(cors())
 mongoose.set('strictQuery', true)
 
 const productSchema = new mongoose.Schema({
@@ -85,10 +86,10 @@ const productSchema = new mongoose.Schema({
  ///updating a product
  app.put("/api/products/updateAProduct/:id", async (req, res) => {
   try {
-    const productId = req.params;
+    const {id} = req.params;
     const updatedProductData = req.body;
     const updatedProduct = await Product.findOneAndUpdate(
-      { id: productId },
+      { _id: id },
       updatedProductData,
       { new: true }
     );
@@ -105,7 +106,7 @@ const productSchema = new mongoose.Schema({
 app.delete("/api/products/deleteAProduct/:id", async (req, res) => {
   try {
     const productId = req.params.id;
-    const deletedProduct = await Product.findOneAndRemove({ id: productId });
+    const deletedProduct = await Product.findOneAndRemove({ _id: productId });
     if (!deletedProduct) {
       return res.status(404).send("Product not found");
     }
