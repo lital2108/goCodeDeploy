@@ -12,9 +12,9 @@ const Admin = () => {
     const navigate = useNavigate();
 
     const fetchData = async () => {
-            // const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
+            const response = await fetch('https://gocodeprojectdeploy.onrender.com/api/products');
             // const response = await fetch('https://fakestoreapi.com/products');
-            const response = await fetch('http://localhost:8000/api/products');
+            // const response = await fetch('http://localhost:8000/api/products');
 
             const data = await response.json();
             setProductsData(data);
@@ -33,8 +33,8 @@ const Admin = () => {
         console.log(name,value,product);
     
         try {
-          // const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${id}`, {
-            const response = await fetch(`http://localhost:8000/api/products/updateAProduct/${id}`, {
+          const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/updateAProduct/${id}`, {
+            // const response = await fetch(`http://localhost:8000/api/products/updateAProduct/${id}`, {
   
           method: 'PUT',
             headers: {
@@ -58,8 +58,8 @@ const Admin = () => {
       
       const handleDeleteItem = async (id) => {
         try{
-          // const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/deleteAProduct/${id}`, {
-            const response = await fetch(`http://localhost:8000/api/products/deleteAProduct/${id}`, {
+          const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/deleteAProduct/${id}`, {
+            // const response = await fetch(`http://localhost:8000/api/products/deleteAProduct/${id}`, {
           method:'DELETE'
         })
         const deletedProduct = await response.json()
@@ -73,8 +73,10 @@ const Admin = () => {
 
       const handleAddItem = async () => {
         try {
-          const response = await fetch('http://localhost:8000/api/products/addProduct', {
-            method: 'POST',
+          // const response = await fetch('http://localhost:8000/api/products/addProduct', {
+            const response = await fetch(`https://gocodeprojectdeploy.onrender.com/api/products/addProduct`, {
+
+          method: 'POST',
             headers: {
               'Content-Type': 'application/json'
             },

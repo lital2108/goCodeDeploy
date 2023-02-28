@@ -8,6 +8,8 @@ const ProductCard = () => {
 
   const fetchSingleProduct = async () => {
     const response = await fetch(
+      `https://gocodeprojectdeploy.onrender.com/api/products/${productId}`
+
       `http://localhost:8000/api/products/${productId}`
       // `http://fakestoreapi.com/products/${productId}`
     );
