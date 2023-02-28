@@ -38,28 +38,28 @@ const [shoppingCart,setShoppingCart]=useState([])
     }
     
     const onRemoveOne= (id, setFunc) =>{
-      const productExist=shoppingCart.find((i) => i.id === id)
-      if(productExist.quantity === 1){
-        setShoppingCart(shoppingCart.filter((i)=>i.id!==id)) 
+      const productExist=shoppingCart.find((i) => i._id === id)
+      if(productExist?.quantity === 1){
+        setShoppingCart(shoppingCart.filter((i)=>i._id!==id)) 
         setFunc(true)    
       }else{
-        setShoppingCart(shoppingCart.map((i)=>i.id===id ? {...productExist, quantity:productExist.quantity-1} : i ));
-        setProductsData(productsData.map((i)=>i.id===id ? {...productExist, quantity:productExist.quantity-1} : i ))
+        setShoppingCart(shoppingCart.map((i)=>i._id===id ? {...productExist, quantity:productExist.quantity-1} : i ));
+        setProductsData(productsData.map((i)=>i._id===id ? {...productExist, quantity:productExist.quantity-1} : i ))
       }
       }
 
 
       const onAdd=(id, setFunc, title='', price=0, imgUrl='')=>{
-        const productExist=shoppingCart.find((i) => i.id === id)
+        const productExist=shoppingCart.find((i) => i._id === id)
         console.log(productExist);
         if(productExist){
-          setShoppingCart(shoppingCart.map((i)=>i.id===id ? {...productExist, quantity:productExist.quantity+1} : i))
-          setProductsData(productsData.map((i)=>i.id===id ? {...productExist, quantity:productExist.quantity+1} : i))
+          setShoppingCart(shoppingCart.map((i)=>i._id===id ? {...productExist, quantity:productExist.quantity+1} : i))
+          setProductsData(productsData.map((i)=>i._id===id ? {...productExist, quantity:productExist.quantity+1} : i))
         }
         else{
-            const newItem={id, quantity: 1, title, price, imgUrl}
+            const newItem={_id:id, quantity: 1, title, price, img:imgUrl}
             setShoppingCart([...shoppingCart, newItem])
-            const chosenProductIndex = productsData.findIndex(p => p.id === id)
+            const chosenProductIndex = productsData.findIndex(p => p._id === id)
             const productsDataClone = [...productsData]
             productsDataClone[chosenProductIndex].quantity = 1
             setProductsData(productsDataClone)
@@ -68,6 +68,7 @@ const [shoppingCart,setShoppingCart]=useState([])
         setFunc(false)
     
     }
+
   return (
     <BrowserRouter>
         <MyContext.Provider value={{onRemoveOne, onAdd, cartOpen,setCartOpen,productsData, setProductsData, categories, allProducts,shoppingCart,setShoppingCart,onClose}}>

@@ -11,11 +11,11 @@ const Products = () => {
         {productsData.map((product)=>{
           return(
             <Product 
-              key={product.id}
-              imgUrl={product.image}
+              key={product._id}
+              imgUrl={product.img}
               title={product.title}
               price={product.price}
-              id={product.id}
+              id={product._id}
               quantity={product.quantity >= 0 ? product.quantity : 0}
               />
           )

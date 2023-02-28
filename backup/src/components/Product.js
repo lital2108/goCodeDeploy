@@ -5,18 +5,18 @@ import {useNavigate} from 'react-router-dom';
 
 
 
-const Product=({imgUrl, title, price,id, quantity=0})=>{
+const Product=({imgUrl, title, price, id, quantity=0})=>{
   const navigate = useNavigate();
   const [ addButton, setAddButton ] = useState(true)
   const { shoppingCart, setShoppingCart, setProductsData, productsData, onRemoveOne, onAdd} = useContext(MyContext);
 
 
 const onRemove= () =>{
-  const productExistIndex=productsData.findIndex((i) => i.id === id)
+  const productExistIndex=productsData.findIndex((i) => i._id === id)
   const productsClone = [...productsData]
   productsClone[productExistIndex].quantity = 0
   setProductsData(productsClone)
-  setShoppingCart(shoppingCart.filter((i)=>i.id!==id))
+  setShoppingCart(shoppingCart.filter((i)=>i._id!==id))
   setAddButton(true)
 }
 
@@ -38,7 +38,7 @@ const onRemove= () =>{
             <div className='amountInDrawer' >
               <button className='button-remove'onClick={() => onRemoveOne(id, setAddButton)} cursor='pointer'>-</button>
               <span className='qnty'>{quantity} in cart</span>
-              <button className='button-add' onClick={() => onAdd(id, setAddButton)} cursor='pointer'>+</button>
+              <button className='button-add' onClick={() => onAdd(id, setAddButton, title, price, imgUrl)} cursor='pointer'>+</button>
              </div>  
             <button className='buttonRemove'title='Remove' onClick={onRemove}>Remove Item</button>
           </div>

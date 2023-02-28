@@ -8,7 +8,8 @@ const ProductCard = () => {
 
   const fetchSingleProduct = async () => {
     const response = await fetch(
-      `http://fakestoreapi.com/products/${productId}`
+      `http://localhost:8000/api/products/${productId}`
+      // `http://fakestoreapi.com/products/${productId}`
     );
     const data = await response.json();
     setChosenProduct(data);

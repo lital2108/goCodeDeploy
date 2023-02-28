@@ -30,11 +30,11 @@ export default function CartDrawer({open,onClose}) {
                     {shoppingCart.map((item)=>{
                     return(
                       <Item 
-                        key={item.id}
+                        key={item._id}
                         title={item.title}
                         price={item.price}
                         quantity={item.quantity}
-                        id={item.id}
+                        id={item._id}
                         amount={item.price*item.quantity}
                         imgUrl={item.imgUrl}
                         />

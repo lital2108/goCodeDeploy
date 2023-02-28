@@ -3,7 +3,7 @@ import './Item.css'
 import { useContext } from "react";
 import MyContext from "../MyContext";
 
-const Item = ({title,quantity,id,amount}) => {
+const Item = ({title,quantity,id,amount, imgUrl}) => {
     const {onAdd,onRemoveOne,setAddButton } = useContext(MyContext);
   
     return(
@@ -15,9 +15,9 @@ const Item = ({title,quantity,id,amount}) => {
             <br></br>
             <div>
               <div className='amountInDrawer' marging='left'>
-                <button className='button-remove' onClick={()=> onRemoveOne(id, setAddButton)} cursor='pointer'>-</button>
+                <button className='button-remove' onClick={()=> onRemoveOne(id, setAddButton, imgUrl)} cursor='pointer'>-</button>
                 <span className='qnty'>{quantity} in cart</span>
-                <button className='button-add' onClick={()=>onAdd(id,setAddButton)} cursor='pointer'>+</button>
+                <button className='button-add' onClick={()=>onAdd(id,setAddButton, imgUrl)} cursor='pointer'>+</button>
               </div>            
             </div>
             <br></br>
