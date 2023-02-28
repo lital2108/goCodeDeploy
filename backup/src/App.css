@@ -209,3 +209,25 @@
    -webkit-user-select: none;
    touch-action: manipulation;
  } 
+
+ .about {
+    /* display: block;
+    margin: 0 auto; */
+    background-color: #9c7456;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 10px;
+    font-weight: bold;
+    padding: 16px 32px;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+    transition: all 0.3s ease;
+  }
+  
+  .about:hover {
+    background-color: #6d4107;
+    box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
+    transform: translateY(-2px);
+  }
+  

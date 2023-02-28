@@ -18,9 +18,10 @@ const Products = () => {
               id={product._id}
               quantity={product.quantity >= 0 ? product.quantity : 0}
               />
+              
           )
+          
         })}
-
       </section>
     );
       }

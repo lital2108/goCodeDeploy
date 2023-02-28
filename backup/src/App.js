@@ -27,6 +27,11 @@ function App() {
           <div className='products'>
             <Products/>
           </div>
+          <tr><td colSpan="2">&nbsp;</td></tr>
+
+          <button className='about' onClick={()=>{navigate('about')}}>
+            About
+          </button>
         </div>
   );
 }
