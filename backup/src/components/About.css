@@ -1,12 +1,28 @@
+.aboutPage::before {
+  content: "";
+  background-image: url('https://www.thespruce.com/thmb/LV3BoGkgBjFYjmL2EE8L9zrBCDk=/750x0/filters:no_upscale():max_bytes(150000):strip_icc():format(webp)/how-to-organize-your-closet-2648411-HERO-01.1-bd2dd22bb1934f798dc92202ed35dd92.jpg');
+  background-size: cover;
+  background-position: center;
+  opacity: 0.5;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+}
+
 .aboutPage {
-    font-size: 0.5cm;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-  }
+  font-size: 0.5cm;
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  position: relative;
+}
+
 
   .startShopping {
     background-color: #2ecc71;
