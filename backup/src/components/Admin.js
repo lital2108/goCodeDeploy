@@ -2,6 +2,7 @@
 import React, { useState, useEffect, Fragment } from 'react'
 import { CiTrash,CiImageOn } from "react-icons/ci";
 import {useNavigate, useParams} from 'react-router-dom';
+import "./Admin.css"
 
 const Admin = () => {
     const [productsData, setProductsData] = useState([])
@@ -95,9 +96,9 @@ const Admin = () => {
       
     return (
       <div className="container">
-        <h1>Hello {userName}</h1>
+        <h1 className='header'>Hello {userName}</h1>
         <tr><td colSpan="2">&nbsp;</td></tr>
-        <table>
+        <table className='adminTable'>
           <thead>
             <tr>
               <th>Title</th>
@@ -182,7 +183,7 @@ const Admin = () => {
 
             />
             </td>
-            <button onClick={handleAddItem}> Add </button>
+            <button className='addButton' onClick={handleAddItem}> Add </button>
           </tr>
         </div>
       </div>
