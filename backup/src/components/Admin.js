@@ -104,6 +104,7 @@ const Admin = () => {
               <th>Title</th>
               <th>Category</th>
               <th>Price</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -138,9 +139,9 @@ const Admin = () => {
                     placeholder="Type Price"
                   />
                 </td>
-                <td> 
-                    <CiTrash className='icon' cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={() => handleDeleteItem(_id)}  />
-                    <CiImageOn className='icon' cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={()=> navigate(`/products/${_id}` , { replace: true })}/>                
+                <td className='icons-container'> 
+                    <CiTrash className='icon' title='delete' cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={() => handleDeleteItem(_id)}  />
+                    <CiImageOn className='icon' title='view' cursor="pointer" style={{ height: "25px", width: "25px" }} onClick={()=> navigate(`/products/${_id}` , { replace: true })}/>                
                 </td>
               </tr>
               </Fragment>

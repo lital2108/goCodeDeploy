@@ -37,10 +37,10 @@ tr th {
   background-color: rgba(217, 221, 146, 0.2);
 }
 
-tr td {
+ tr td {
   border: 1px solid #eeeeee;
   text-align: left;
-}
+} 
 
 input {
   font-size: 16px;
@@ -69,12 +69,17 @@ input:focus {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  border-collapse: separate;
+  border-spacing: 10px;
 }
 
 .adminTable {
   width: 100%;
   max-width: 600px;
-  border-collapse: collapse;
+  /* border-collapse: collapse; */
+  border-collapse: separate;
+  border-spacing: 10px;
+
 }
 
 th, td {
@@ -100,5 +105,10 @@ th, td {
   
   addButton:hover {
     background-color: #3e8e41;
+  }
+  
+.icons-container{
+    display: flex;
+    gap: 8px;
   }
   
