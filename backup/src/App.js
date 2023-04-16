@@ -17,7 +17,7 @@ function App() {
           <div className=''>
             <CartDrawer onClose={onClose} open={cartOpen}></CartDrawer>
             <IconButton size="large"  className='iconButton'  onClick={()=>setCartOpen(true)} title='Shopping Cart' color="primary" aria-label="shopping cart" >
-               <ShoppingCartIcon style={{height:'50px', width:'50px'}} />
+               <ShoppingCartIcon className='shoppingIcon' />
             </IconButton>  
             <div className='admin' >
               <button className='button-47' onClick={()=>{navigate('login')}}>Admin Login</button>

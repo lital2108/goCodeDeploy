@@ -100,11 +100,15 @@ th, td {
     margin-top: 16px;
     cursor: pointer;
     border-radius: 4px;
-    transition: background-color 0.3s ease;
+    /* transition: background-color 0.3s ease; */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: all 0.2s ease-in-out;
   }
   
   addButton:hover {
     background-color: #3e8e41;
+    transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
   }
   
 .icons-container{

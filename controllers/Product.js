@@ -1,5 +1,4 @@
     import { addProductService, addProductsService, getAllProductsService, getProductsByCategoryService, filterProductsByPriceService, findProductAndUpdateService, deleteAProductService } from "../services/Product.js";
-    import { query } from "express";
 
     export const addProductController = async (req, res) => {
         try{
@@ -31,7 +30,7 @@
 
       export const getProductsByCategoryController = async (req,res) => {
         try{
-            var {categoryName} =  req.params
+            const {categoryName} =  req.params
             const products = await getProductsByCategoryService(categoryName)
             res.send(products)
         }catch(e){

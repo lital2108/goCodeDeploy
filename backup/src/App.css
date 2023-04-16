@@ -230,4 +230,7 @@
     box-shadow: 3px 3px 6px rgba(0, 0, 0, 0.5);
     transform: translateY(-2px);
   }
-  
+  .shoppingIcon{
+    height:'50px'; 
+    width:'50px'
+  }
